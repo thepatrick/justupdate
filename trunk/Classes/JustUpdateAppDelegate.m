@@ -134,7 +134,7 @@
 	CGRect ptFrame = postingTweet.frame;
 	ptFrame.origin.x = 0;
 	ptFrame.origin.y = fr.size.height - ptFrame.size.height;	
-	postingTweet.frame = ptFrame;
+	postingTweet.frame = fr;
 	[self.window addSubview:postingTweet];
 	
 	postTweetItem.enabled = NO;
@@ -142,6 +142,7 @@
 }
 
 -(void)postTweetDone {
+	
 	newTweet.text = @"";
 	[self textViewDidChange:newTweet];
 	NSRange r = NSMakeRange(0, [newTweet.text length]);
@@ -349,7 +350,11 @@
 	
 	NSLog(@"We asked for %@ with post %@ Got back %@", path, tw, m);
 	
+	[postingTweet performSelectorOnMainThread:@selector(retain) withObject:nil waitUntilDone:YES];
+	[postingTweet performSelectorOnMainThread:@selector(removeFromSuperview) withObject:nil waitUntilDone:YES];
+	
 	NSDictionary *dict = [m JSONValue];
+	
 	if(dict) {
 		[self performSelectorOnMainThread:@selector(postTweetDone) withObject:nil waitUntilDone:NO];
 	} else {
