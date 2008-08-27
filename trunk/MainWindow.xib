@@ -8,9 +8,9 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="56"/>
 			<integer value="11"/>
 			<integer value="84"/>
-			<integer value="53"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -397,7 +397,7 @@
 					<object class="IBUIActivityIndicatorView" id="217247009">
 						<reference key="NSNextResponder" ref="753067319"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{141, 106}, {37, 37}}</string>
+						<string key="NSFrame">{{141, 62}, {37, 37}}</string>
 						<reference key="NSSuperview" ref="753067319"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -409,7 +409,7 @@
 					<object class="IBUILabel" id="1038472953">
 						<reference key="NSNextResponder" ref="753067319"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 158}, {320, 31}}</string>
+						<string key="NSFrame">{{0, 114}, {320, 31}}</string>
 						<reference key="NSSuperview" ref="753067319"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -432,7 +432,7 @@
 						<int key="IBUITextAlignment">1</int>
 					</object>
 				</object>
-				<string key="NSFrameSize">{320, 245}</string>
+				<string key="NSFrameSize">{320, 216}</string>
 				<reference key="NSSuperview"/>
 				<reference key="IBUIBackgroundColor" ref="683107296"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -882,8 +882,8 @@
 						<reference key="object" ref="753067319"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="1038472953"/>
 							<reference ref="217247009"/>
+							<reference ref="1038472953"/>
 						</object>
 						<reference key="parent" ref="957960031"/>
 						<string key="objectName">Posting</string>
@@ -991,7 +991,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{83, 325}, {320, 245}}</string>
+					<string>{{83, 325}, {320, 216}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

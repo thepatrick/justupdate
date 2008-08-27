@@ -53,6 +53,7 @@
 -(IBAction)directMessage:(id)Sender;
 -(IBAction)hideReplyPicker:(id)sender;
 
+-(void)postTweetDoneCommon;
 -(void)replyDMCommon;
 
 -(void)verifySignin:(NSString*)username andPassword:(NSString*)password withCallbackSelector:(SEL)sel target:(id)theTarget;

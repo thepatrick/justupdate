@@ -130,11 +130,14 @@
 {
 	//newTweet
 	
+	[newTweet resignFirstResponder];
+	newTweet.editable = NO;
+	
 	CGRect fr = [[UIScreen mainScreen] applicationFrame];
 	CGRect ptFrame = postingTweet.frame;
 	ptFrame.origin.x = 0;
-	ptFrame.origin.y = fr.size.height - ptFrame.size.height;	
-	postingTweet.frame = fr;
+	ptFrame.origin.y = 22 + fr.size.height - ptFrame.size.height;	
+	postingTweet.frame = ptFrame;
 	[self.window addSubview:postingTweet];
 	
 	postTweetItem.enabled = NO;
@@ -142,17 +145,27 @@
 }
 
 -(void)postTweetDone {
-	
+	[self postTweetDoneCommon];
 	newTweet.text = @"";
 	[self textViewDidChange:newTweet];
 	NSRange r = NSMakeRange(0, [newTweet.text length]);
 	[self textView:newTweet shouldChangeTextInRange:r replacementText:@""];
 }
 
+-(void)postTweetDoneCommon {
+	[postingTweet retain];
+	[postingTweet removeFromSuperview];
+	postTweetItem.enabled = YES;
+	newTweet.editable = YES;
+	[newTweet becomeFirstResponder];
+	
+}
 
 -(IBAction)about:(id)sender 
 {
-	UIAlertView *uav = [[UIAlertView alloc] initWithTitle:@"JustUpdate" message:@"Version 1.1\n© 2008 Patrick Quinn-Graham" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Website", nil];
+	id iffy = [[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleVersion"];
+	NSString *msg = [NSString stringWithFormat:@"Version %@\n© 2008 Patrick Quinn-Graham", iffy]; 
+	UIAlertView *uav = [[UIAlertView alloc] initWithTitle:@"JustUpdate" message:msg delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles:@"Website", nil];
 	[uav show];
 	[uav autorelease];
 }
@@ -241,7 +254,6 @@
 			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://m.ac.nz/justupdate/iphone"]];	
 		}
 	} else {		
-		NSLog(@"alertview went away!");
 		signinPassword.enabled = YES;
 		signinUsername.enabled = YES;
 		[signinUsername becomeFirstResponder];
@@ -335,7 +347,6 @@
 	
 	NSMutableURLRequest *theRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:path]];
 	
-	
 	NSData *data = [tw dataUsingEncoding:NSStringEncodingConversionExternalRepresentation];
 	
 	[theRequest setHTTPMethod:@"POST"];
@@ -343,29 +354,41 @@
 	
 	NSError *err;
 	NSURLResponse *response;
-	
+	[theRequest setTimeoutInterval:30];
 	NSData *d = [NSURLConnection sendSynchronousRequest:theRequest returningResponse:&response error:&err];
 	
-	NSString *m = [NSString stringWithCString:[d bytes]];
+	BOOL alreadyAlerted = NO;
 	
-	NSLog(@"We asked for %@ with post %@ Got back %@", path, tw, m);
-	
-	[postingTweet performSelectorOnMainThread:@selector(retain) withObject:nil waitUntilDone:YES];
-	[postingTweet performSelectorOnMainThread:@selector(removeFromSuperview) withObject:nil waitUntilDone:YES];
-	
-	NSDictionary *dict = [m JSONValue];
-	
-	if(dict) {
-		[self performSelectorOnMainThread:@selector(postTweetDone) withObject:nil waitUntilDone:NO];
+	NSString *m = nil;
+	if(d != nil) {
+		m = [NSString stringWithCString:[d bytes]];
 	} else {
-		UIAlertView *uav = [[UIAlertView alloc] initWithTitle:@"Twitter Update Failed" message:@"We might be unable to reach twitter, or you may have changed your password." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		UIAlertView *uav = [[UIAlertView alloc] initWithTitle:@"Twitter Update Failed" message:@"Couldn't connect to twitter, sorry." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[uav show];
 		[uav autorelease];
-		[self performSelectorOnMainThread:@selector(textViewDidChange:) withObject:newTweet waitUntilDone:YES];
+		alreadyAlerted = YES;
+	}
+	
+	//NSLog(@"We asked for %@ with post %@ Got back %@", path, tw, m);
+	
+	NSDictionary *dict = nil;
+	if(m != nil) {
+		dict = [m JSONValue];
+	}
+	
+	if(dict != nil) {
+		[self performSelectorOnMainThread:@selector(postTweetDone) withObject:nil waitUntilDone:NO];
+	} else {
+		if(!alreadyAlerted) {
+			NSLog(@"M was: %@", m);
+			UIAlertView *uav = [[UIAlertView alloc] initWithTitle:@"Twitter Update Failed" message:@"We might be unable to reach twitter, or you may have changed your password." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[uav show];
+			[uav autorelease];
+		}
+		[self performSelectorOnMainThread:@selector(postTweetDoneCommon) withObject:nil waitUntilDone:YES];
 	}
 	
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-	
 	
     [pool release];
 }
