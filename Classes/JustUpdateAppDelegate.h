@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2008 Patrick Quinn-Graham
  * 
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -18,15 +18,8 @@
  * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
  * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
  */
-
-//
-//  JustUpdateAppDelegate.h
-//  JustUpdate
-//
-//  Created by Patrick Quinn-Graham on 16/08/08.
-//
 
 #import <UIKit/UIKit.h>
 
@@ -58,6 +51,15 @@
 	NSArray *replyPeople;
 	NSString *replyPrefix;
 	
+	BOOL disableAnalytics;
+	
+	
+	
+	NSArray *aboutScreenObjects;
+	
+	IBOutlet UIView *aboutView;
+	IBOutlet UILabel *aboutVersion;
+	
 }
 
 @property (nonatomic, retain) UIWindow *window;
@@ -81,10 +83,18 @@
 -(void)verifySignin:(NSString*)username andPassword:(NSString*)password withCallbackSelector:(SEL)sel target:(id)theTarget;
 -(void)doVerifySignin:(AuthdThreadArgs*)credentials;
 
+-(NSString*)getFriendsCacheFileName;
 
 -(void)peopleFromJSONString:(NSString*)jsonString;
 -(void)sortReplyPeople;
 -(NSString*)getDocumentsDirectory;
-	
+
+-(void)showAboutScreen;
+-(void)dismissAboutScreenDone;
+
+-(IBAction)aboutDismiss:(id)sender;
+-(IBAction)aboutVisitWebsite:(id)sender;
+-(IBAction)aboutPrivacyPolicy:(id)sender;
+
 @end
 

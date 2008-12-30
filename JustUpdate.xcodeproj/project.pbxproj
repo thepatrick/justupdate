@@ -15,9 +15,16 @@
 		CD120FC00E64042000AEEEFA /* PopupOverlayDM.png in Resources */ = {isa = PBXBuildFile; fileRef = CD120FBF0E64042000AEEEFA /* PopupOverlayDM.png */; };
 		CD120FD50E64063100AEEEFA /* PopupOverlayHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = CD120FD30E64063100AEEEFA /* PopupOverlayHighlight.png */; };
 		CD120FD60E64063100AEEEFA /* PopupOverlayDMHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = CD120FD40E64063100AEEEFA /* PopupOverlayDMHighlight.png */; };
+		CD5A38010E65CD0900CF8A88 /* libAppLoopDEV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD5A37FE0E65CD0900CF8A88 /* libAppLoopDEV.a */; };
+		CD5A38020E65CD0900CF8A88 /* libAppLoopSIM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD5A37FF0E65CD0900CF8A88 /* libAppLoopSIM.a */; };
+		CD5A38060E65CD7600CF8A88 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CD5A38050E65CD7600CF8A88 /* libsqlite3.0.dylib */; };
+		CD5A38090E65CD9400CF8A88 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD5A38070E65CD9400CF8A88 /* CoreLocation.framework */; };
+		CD5A380A0E65CD9400CF8A88 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD5A38080E65CD9400CF8A88 /* SystemConfiguration.framework */; };
 		CD7091150E57264D00D1BF45 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CD7091140E57264D00D1BF45 /* Icon.png */; };
 		CD7091540E57337D00D1BF45 /* AuthdThreadArgs.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7091530E57337D00D1BF45 /* AuthdThreadArgs.m */; };
 		CD7091920E573B0300D1BF45 /* NSStringSyncAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7091910E573B0300D1BF45 /* NSStringSyncAdditions.m */; };
+		CDCAABAA0E66ADAC00937599 /* LargeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCAABA90E66ADAC00937599 /* LargeIcon.png */; };
+		CDCAABAC0E66AFB100937599 /* AboutScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDCAABAB0E66AFB100937599 /* AboutScreen.xib */; };
 		CDE47F280E5750F200413BC1 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE47F230E5750F200413BC1 /* NSObject+SBJSON.m */; };
 		CDE47F290E5750F200413BC1 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE47F250E5750F200413BC1 /* NSString+SBJSON.m */; };
 		CDE47F2A0E5750F200413BC1 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE47F270E5750F200413BC1 /* SBJSON.m */; };
@@ -38,11 +45,22 @@
 		CD120FBF0E64042000AEEEFA /* PopupOverlayDM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PopupOverlayDM.png; path = Images/PopupOverlayDM.png; sourceTree = "<group>"; };
 		CD120FD30E64063100AEEEFA /* PopupOverlayHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PopupOverlayHighlight.png; path = Images/PopupOverlayHighlight.png; sourceTree = "<group>"; };
 		CD120FD40E64063100AEEEFA /* PopupOverlayDMHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PopupOverlayDMHighlight.png; path = Images/PopupOverlayDMHighlight.png; sourceTree = "<group>"; };
+		CD5A37F90E65CD0900CF8A88 /* ALAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALAdDelegate.h; sourceTree = "<group>"; };
+		CD5A37FA0E65CD0900CF8A88 /* ALAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALAlertView.h; sourceTree = "<group>"; };
+		CD5A37FB0E65CD0900CF8A88 /* ALService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALService.h; sourceTree = "<group>"; };
+		CD5A37FC0E65CD0900CF8A88 /* ALStandardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALStandardView.h; sourceTree = "<group>"; };
+		CD5A37FE0E65CD0900CF8A88 /* libAppLoopDEV.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAppLoopDEV.a; sourceTree = "<group>"; };
+		CD5A37FF0E65CD0900CF8A88 /* libAppLoopSIM.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAppLoopSIM.a; sourceTree = "<group>"; };
+		CD5A38050E65CD7600CF8A88 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		CD5A38070E65CD9400CF8A88 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		CD5A38080E65CD9400CF8A88 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CD7091140E57264D00D1BF45 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Images/Icon.png; sourceTree = "<group>"; };
 		CD7091520E57337D00D1BF45 /* AuthdThreadArgs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthdThreadArgs.h; sourceTree = "<group>"; };
 		CD7091530E57337D00D1BF45 /* AuthdThreadArgs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthdThreadArgs.m; sourceTree = "<group>"; };
 		CD7091900E573B0300D1BF45 /* NSStringSyncAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringSyncAdditions.h; sourceTree = "<group>"; };
 		CD7091910E573B0300D1BF45 /* NSStringSyncAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringSyncAdditions.m; sourceTree = "<group>"; };
+		CDCAABA90E66ADAC00937599 /* LargeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LargeIcon.png; path = Images/LargeIcon.png; sourceTree = "<group>"; };
+		CDCAABAB0E66AFB100937599 /* AboutScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutScreen.xib; sourceTree = "<group>"; };
 		CDE47F210E5750F200413BC1 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		CDE47F220E5750F200413BC1 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		CDE47F230E5750F200413BC1 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -61,6 +79,11 @@
 			files = (
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				CD5A38010E65CD0900CF8A88 /* libAppLoopDEV.a in Frameworks */,
+				CD5A38020E65CD0900CF8A88 /* libAppLoopSIM.a in Frameworks */,
+				CD5A38060E65CD7600CF8A88 /* libsqlite3.0.dylib in Frameworks */,
+				CD5A38090E65CD9400CF8A88 /* CoreLocation.framework in Frameworks */,
+				CD5A380A0E65CD9400CF8A88 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +115,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				CD5A37F80E65CD0900CF8A88 /* AppLoop-1.1.3 */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -118,7 +142,9 @@
 				CD120FBF0E64042000AEEEFA /* PopupOverlayDM.png */,
 				CDEB2A080E60B537008F7701 /* PopupOverlay.png */,
 				CDEB2A040E60B237008F7701 /* Default.png */,
+				CDCAABA90E66ADAC00937599 /* LargeIcon.png */,
 				CD7091140E57264D00D1BF45 /* Icon.png */,
+				CDCAABAB0E66AFB100937599 /* AboutScreen.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 			);
@@ -128,10 +154,26 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CD5A38070E65CD9400CF8A88 /* CoreLocation.framework */,
+				CD5A38080E65CD9400CF8A88 /* SystemConfiguration.framework */,
+				CD5A38050E65CD7600CF8A88 /* libsqlite3.0.dylib */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CD5A37F80E65CD0900CF8A88 /* AppLoop-1.1.3 */ = {
+			isa = PBXGroup;
+			children = (
+				CD5A37F90E65CD0900CF8A88 /* ALAdDelegate.h */,
+				CD5A37FA0E65CD0900CF8A88 /* ALAlertView.h */,
+				CD5A37FB0E65CD0900CF8A88 /* ALService.h */,
+				CD5A37FC0E65CD0900CF8A88 /* ALStandardView.h */,
+				CD5A37FE0E65CD0900CF8A88 /* libAppLoopDEV.a */,
+				CD5A37FF0E65CD0900CF8A88 /* libAppLoopSIM.a */,
+			);
+			path = "AppLoop-1.1.3";
 			sourceTree = "<group>";
 		};
 		CDE47F200E5750F200413BC1 /* JSON */ = {
@@ -197,6 +239,8 @@
 				CD120FC00E64042000AEEEFA /* PopupOverlayDM.png in Resources */,
 				CD120FD50E64063100AEEEFA /* PopupOverlayHighlight.png in Resources */,
 				CD120FD60E64063100AEEEFA /* PopupOverlayDMHighlight.png in Resources */,
+				CDCAABAA0E66ADAC00937599 /* LargeIcon.png in Resources */,
+				CDCAABAC0E66AFB100937599 /* AboutScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +274,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = JustUpdate_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/AppLoop-1.1.3\"",
+				);
 				PRODUCT_NAME = JustUpdate;
 			};
 			name = Debug;
@@ -242,6 +290,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = JustUpdate_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/AppLoop-1.1.3\"",
+				);
 				PRODUCT_NAME = JustUpdate;
 			};
 			name = Release;
@@ -256,7 +308,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "46860E38-B9CA-4147-B90A-44116C6E6B68";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "847E5ABC-A2C6-4536-8F73-483A0F39D944";
 				SDKROOT = iphoneos2.0;
 			};
 			name = Debug;
@@ -270,7 +322,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "46860E38-B9CA-4147-B90A-44116C6E6B68";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "847E5ABC-A2C6-4536-8F73-483A0F39D944";
 				SDKROOT = iphoneos2.0;
 			};
 			name = Release;
@@ -284,7 +336,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "982BBB70-DB4D-4136-A15D-D43FD374FE9E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4585B0BE-885B-4624-9938-1B25B9C671F8";
 				SDKROOT = iphoneos2.0;
 			};
 			name = "Ad Hoc";
@@ -297,6 +349,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = JustUpdate_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/AppLoop-1.1.3\"",
+				);
 				PRODUCT_NAME = JustUpdate;
 			};
 			name = "Ad Hoc";
@@ -323,6 +379,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = JustUpdate_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/AppLoop-1.1.3\"",
+				);
 				PRODUCT_NAME = JustUpdate;
 			};
 			name = "App Store";
