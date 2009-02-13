@@ -15,8 +15,7 @@
 		CD120FC00E64042000AEEEFA /* PopupOverlayDM.png in Resources */ = {isa = PBXBuildFile; fileRef = CD120FBF0E64042000AEEEFA /* PopupOverlayDM.png */; };
 		CD120FD50E64063100AEEEFA /* PopupOverlayHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = CD120FD30E64063100AEEEFA /* PopupOverlayHighlight.png */; };
 		CD120FD60E64063100AEEEFA /* PopupOverlayDMHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = CD120FD40E64063100AEEEFA /* PopupOverlayDMHighlight.png */; };
-		CD5A38010E65CD0900CF8A88 /* libAppLoopDEV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD5A37FE0E65CD0900CF8A88 /* libAppLoopDEV.a */; };
-		CD5A38020E65CD0900CF8A88 /* libAppLoopSIM.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD5A37FF0E65CD0900CF8A88 /* libAppLoopSIM.a */; };
+		CD407CBA0F43E6F600CBC0B2 /* libPMAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CD407CB80F43E6F600CBC0B2 /* libPMAnalytics.a */; };
 		CD5A38060E65CD7600CF8A88 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CD5A38050E65CD7600CF8A88 /* libsqlite3.0.dylib */; };
 		CD5A38090E65CD9400CF8A88 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD5A38070E65CD9400CF8A88 /* CoreLocation.framework */; };
 		CD5A380A0E65CD9400CF8A88 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD5A38080E65CD9400CF8A88 /* SystemConfiguration.framework */; };
@@ -45,12 +44,8 @@
 		CD120FBF0E64042000AEEEFA /* PopupOverlayDM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PopupOverlayDM.png; path = Images/PopupOverlayDM.png; sourceTree = "<group>"; };
 		CD120FD30E64063100AEEEFA /* PopupOverlayHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PopupOverlayHighlight.png; path = Images/PopupOverlayHighlight.png; sourceTree = "<group>"; };
 		CD120FD40E64063100AEEEFA /* PopupOverlayDMHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PopupOverlayDMHighlight.png; path = Images/PopupOverlayDMHighlight.png; sourceTree = "<group>"; };
-		CD5A37F90E65CD0900CF8A88 /* ALAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALAdDelegate.h; sourceTree = "<group>"; };
-		CD5A37FA0E65CD0900CF8A88 /* ALAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALAlertView.h; sourceTree = "<group>"; };
-		CD5A37FB0E65CD0900CF8A88 /* ALService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALService.h; sourceTree = "<group>"; };
-		CD5A37FC0E65CD0900CF8A88 /* ALStandardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALStandardView.h; sourceTree = "<group>"; };
-		CD5A37FE0E65CD0900CF8A88 /* libAppLoopDEV.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAppLoopDEV.a; sourceTree = "<group>"; };
-		CD5A37FF0E65CD0900CF8A88 /* libAppLoopSIM.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAppLoopSIM.a; sourceTree = "<group>"; };
+		CD407CB80F43E6F600CBC0B2 /* libPMAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPMAnalytics.a; sourceTree = "<group>"; };
+		CD407CB90F43E6F600CBC0B2 /* Beacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beacon.h; sourceTree = "<group>"; };
 		CD5A38050E65CD7600CF8A88 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		CD5A38070E65CD9400CF8A88 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		CD5A38080E65CD9400CF8A88 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -79,11 +74,10 @@
 			files = (
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
-				CD5A38010E65CD0900CF8A88 /* libAppLoopDEV.a in Frameworks */,
-				CD5A38020E65CD0900CF8A88 /* libAppLoopSIM.a in Frameworks */,
 				CD5A38060E65CD7600CF8A88 /* libsqlite3.0.dylib in Frameworks */,
 				CD5A38090E65CD9400CF8A88 /* CoreLocation.framework in Frameworks */,
 				CD5A380A0E65CD9400CF8A88 /* SystemConfiguration.framework in Frameworks */,
+				CD407CBA0F43E6F600CBC0B2 /* libPMAnalytics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,7 +109,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				CD5A37F80E65CD0900CF8A88 /* AppLoop-1.1.3 */,
+				CD407CB20F43E6D900CBC0B2 /* Pinch */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -163,17 +157,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		CD5A37F80E65CD0900CF8A88 /* AppLoop-1.1.3 */ = {
+		CD407CB20F43E6D900CBC0B2 /* Pinch */ = {
 			isa = PBXGroup;
 			children = (
-				CD5A37F90E65CD0900CF8A88 /* ALAdDelegate.h */,
-				CD5A37FA0E65CD0900CF8A88 /* ALAlertView.h */,
-				CD5A37FB0E65CD0900CF8A88 /* ALService.h */,
-				CD5A37FC0E65CD0900CF8A88 /* ALStandardView.h */,
-				CD5A37FE0E65CD0900CF8A88 /* libAppLoopDEV.a */,
-				CD5A37FF0E65CD0900CF8A88 /* libAppLoopSIM.a */,
+				CD407CB80F43E6F600CBC0B2 /* libPMAnalytics.a */,
+				CD407CB90F43E6F600CBC0B2 /* Beacon.h */,
 			);
-			path = "AppLoop-1.1.3";
+			name = Pinch;
 			sourceTree = "<group>";
 		};
 		CDE47F200E5750F200413BC1 /* JSON */ = {
@@ -277,6 +267,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AppLoop-1.1.3\"",
+					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = JustUpdate;
 			};
@@ -293,6 +284,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AppLoop-1.1.3\"",
+					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = JustUpdate;
 			};
@@ -308,7 +300,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "847E5ABC-A2C6-4536-8F73-483A0F39D944";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1517780C-1C5A-455A-929E-EB6A68CBDF2A";
 				SDKROOT = iphoneos2.0;
 			};
 			name = Debug;
@@ -352,6 +344,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AppLoop-1.1.3\"",
+					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = JustUpdate;
 			};
@@ -366,7 +359,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "838D72A4-27B6-453F-AE8A-32FBE177D029";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B05D2670-B452-4E39-8AAB-51D04F057FB2";
 				SDKROOT = iphoneos2.0;
 			};
 			name = "App Store";
@@ -382,6 +375,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/AppLoop-1.1.3\"",
+					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = JustUpdate;
 			};

@@ -25,7 +25,7 @@
 #import "AuthdThreadArgs.h"
 #import "NSStringSyncAdditions.h"
 #import "JSON.h"
-#import "ALService.h"
+#import "Beacon.h"
 
 @implementation JustUpdateAppDelegate
 
@@ -44,15 +44,20 @@
 	[dd setValue:@"NO" forKey:@"JUDisableAnalytics"];
 	[defaults registerDefaults:dd];
 	
-	[ALService setApplicationKey:@"CWZ1RJ1VGJSCVZE7" applicationSecret:@"9bf8f239d1539bbe5aac31cae399f11e"];
-	
+		
 	charactersRemaining.enabled = false;
 	
 	newTweetView.frame = [[UIScreen mainScreen] applicationFrame];
 	
 	[self.window addSubview:newTweetView];
 	
-	newTweet.text = @"";
+	NSString *lastTweetText = [[NSUserDefaults standardUserDefaults] stringForKey:@"JUSavedTweet"];
+	if(lastTweetText) {
+		newTweet.text = lastTweetText;		
+	} else {
+		newTweet.text = @"";
+	}
+	
 	newTweet.delegate = self;
 	
 	BOOL doSignin = YES;
@@ -74,7 +79,6 @@
 	[window makeKeyAndVisible];
 	
 	if(![defaults boolForKey:@"JUConfirmedAnalytics"]) {
-		
 		UIAlertView *uav = [[UIAlertView alloc] initWithTitle:@"Anonymous Statistics" 
 													  message:@"JustUpdate would like to collect anonymous usage statistics during operation.\n\n At no time does any of this information contain the content of your tweets, your username, your location, or any other identifying information.\n\nVisit the website for full details." 
 													 delegate:self 
@@ -82,13 +86,48 @@
 											otherButtonTitles:@"OK", nil];
 		[uav show];
 		[uav autorelease];
-		
-		//[defaults setBool:YES forKey:@"JUConfirmedAnalytics"];
 	}
 	
 	disableAnalytics  = [[NSUserDefaults standardUserDefaults] boolForKey:@"JUDisableAnalytics"];
-	if(!disableAnalytics) [[ALService sharedService] startAnalysisUsingLocation:NO];
+	if(!disableAnalytics) {
+		NSString *applicationCode = @"e20c4f9c194bea9049b6daf7d649c261";
+		[Beacon initAndStartBeaconWithApplicationCode:applicationCode useCoreLocation:NO useOnlyWiFi:NO];
+	}
+}
 
+-(NSDictionary*)dictionaryFromQueryString:(NSString*)query {
+	
+	NSArray *all = [query componentsSeparatedByString:@"&"];
+	NSMutableDictionary *qsDict = [NSMutableDictionary dictionaryWithCapacity:[all count]];
+	
+	for(NSString *qsElement in all) {
+		NSArray *qsElements = [qsElement componentsSeparatedByString:@"="];
+		if([qsElements count] == 2) {
+			NSString *key = [qsElements objectAtIndex:0];
+			NSString *value = [[qsElements objectAtIndex:1] stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+			NSString *valueValue = (NSString*)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(kCFAllocatorDefault, (CFStringRef)value, CFSTR(""), NSStringEncodingConversionExternalRepresentation);
+			[qsDict setObject:valueValue forKey:key];
+			[valueValue release];
+		}
+	}
+	return qsDict;
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+	
+	BOOL handledURL = NO;
+		
+	if([[url host] isEqualToString:@"tweet"]) {
+		NSDictionary *d = [self dictionaryFromQueryString:[url query]];
+		NSString *msg = [d objectForKey:@"msg"];
+		if(msg) {
+			newTweet.text = [newTweet.text stringByAppendingFormat:msg];
+			handledURL = YES;
+		}
+	}
+	
+	return handledURL;
 }
 
 -(void)showSignin 
@@ -131,7 +170,7 @@
 
 -(void)animationStopped:(NSString*)animationID afterFinishing:(BOOL)finished withContext:(void*)context
 {
-	NSLog(@"Ended animation %@", animationID);
+	//NSLog(@"Ended animation %@", animationID);
 	if(animationID == @"hideSignIn") {
 		[signinView retain];
 		[signinView removeFromSuperview];
@@ -144,7 +183,9 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-	if(!disableAnalytics) [[ALService sharedService] stopAnalysis];
+	
+	[[NSUserDefaults standardUserDefaults] setValue:newTweet.text forKey:@"JUSavedTweet"];
+	if(!disableAnalytics) [[Beacon shared] endBeacon];
 }
 
 -(void)dealloc {
@@ -200,7 +241,7 @@
 
 -(IBAction)signOut:(id)sender 
 {	
-	if(!disableAnalytics) [[ALService sharedService] logAction:@"Signed Out"];
+	if(!disableAnalytics) [[Beacon shared] startSubBeaconWithName:@"signout" timeSession:NO];
 	
 	NSFileManager *fm = [NSFileManager defaultManager];
 	NSString *cachePath = [self getFriendsCacheFileName];
@@ -232,7 +273,7 @@
 }
 
 -(void)postTweetDone {
-	if(!disableAnalytics) [[ALService sharedService] logAction:@"Post Tweet: Success"];
+	if(!disableAnalytics) [[Beacon shared] startSubBeaconWithName:@"post tweet ok" timeSession:NO];
 	[self postTweetDoneCommon];
 	newTweet.text = @"";
 	[self textViewDidChange:newTweet];
@@ -256,13 +297,13 @@
 
 -(IBAction)signup:(id)sender 
 {
-	if(!disableAnalytics) [[ALService sharedService] logAction:@"Clicked Signup"];
+	if(!disableAnalytics) [[Beacon shared] startSubBeaconWithName:@"signup" timeSession:NO];
 	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://m.ac.nz/justupdate/iphone/signup"]];	
 }
 
 -(IBAction)reply:(id)sender 
 {	
-	if(!disableAnalytics) [[ALService sharedService] logAction:@"Opened Reply"];
+	if(!disableAnalytics) [[Beacon shared] startSubBeaconWithName:@"open reply" timeSession:NO];
 	self.replyPrefix = @"@";
 	replyPickerTitle.text = @"Send Reply To:";
 	[replyPickerTitleBackground setImage:[UIImage imageNamed:@"PopupOverlay.png"] forState:UIControlStateNormal];
@@ -272,7 +313,7 @@
 
 -(IBAction)directMessage:(id)sender 
 {
-	if(!disableAnalytics) [[ALService sharedService] logAction:@"Opened DM"];
+	if(!disableAnalytics) [[Beacon shared] startSubBeaconWithName:@"open dm" timeSession:NO];
 	replyPickerTitle.text = @"Send Direct Message To:";
 	self.replyPrefix = @"d ";
 	[replyPickerTitleBackground setImage:[UIImage imageNamed:@"PopupOverlayDM.png"] forState:UIControlStateNormal];
@@ -343,6 +384,7 @@
 		if(buttonIndex == 0) {
 			[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"JUDisableAnalytics"];
 			disableAnalytics = YES;
+			[[Beacon shared] endBeacon];
 		}
 		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"JUConfirmedAnalytics"];
 	} else {		
@@ -357,7 +399,7 @@
 -(void)siginDone:(AuthdThreadArgs*)args
 {
 	if(args.authOk) {
-		if(!disableAnalytics) [[ALService sharedService] logAction:@"Signed in to Twitter"];
+		if(!disableAnalytics)  [[Beacon shared] startSubBeaconWithName:@"signin" timeSession:NO];
 		[self hideSignin];
 		
 		signinUsername.text = @"";
@@ -462,7 +504,8 @@
 		[uav show];
 		[uav autorelease];
 		alreadyAlerted = YES;
-		if(!disableAnalytics) [[ALService sharedService] performSelectorOnMainThread:@selector(logAction:) withObject:@"Failed to connect to twitter (-1)" waitUntilDone:NO];
+		if(!disableAnalytics) 
+			[[Beacon shared] startSubBeaconWithName:@"connectFailed-1" timeSession:NO];
 	}
 	
 	//NSLog(@"We asked for %@ with post %@ Got back %@", path, tw, m);
@@ -476,11 +519,12 @@
 		[self performSelectorOnMainThread:@selector(postTweetDone) withObject:nil waitUntilDone:NO];
 	} else {
 		if(!alreadyAlerted) {
-			NSLog(@"M was: %@", m);
+			//NSLog(@"M was: %@", m);
 			UIAlertView *uav = [[UIAlertView alloc] initWithTitle:@"Twitter Update Failed" message:@"We might be unable to reach twitter, or you may have changed your password." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[uav show];
 			[uav autorelease];
-			if(!disableAnalytics) [[ALService sharedService] performSelectorOnMainThread:@selector(logAction:) withObject:@"Posting tweet failed (-2)" waitUntilDone:YES];
+			if(!disableAnalytics)
+				[[Beacon shared] startSubBeaconWithName:@"postTweetFailed-2" timeSession:NO];
 		}
 		[self performSelectorOnMainThread:@selector(postTweetDoneCommon) withObject:nil waitUntilDone:YES];
 	}
@@ -581,8 +625,8 @@
 
 -(void)showAboutScreen
 {
-	
-	if(!disableAnalytics) [[ALService sharedService] logAction:@"Open About"];
+	[[Beacon shared] startSubBeaconWithName:@"openAbout" timeSession:NO];
+	if(!disableAnalytics) [[Beacon shared] startSubBeaconWithName:@"open about" timeSession:NO];
 	
 	aboutScreenObjects = [[NSBundle mainBundle] loadNibNamed:@"AboutScreen" owner:self options:nil];
 	[aboutScreenObjects retain];
@@ -628,13 +672,13 @@
 
 -(IBAction)aboutVisitWebsite:(id)sender
 {
-	if(!disableAnalytics) [[ALService sharedService] logAction:@"Opened Website"];
+	if(!disableAnalytics) [[Beacon shared] startSubBeaconWithName:@"open own website" timeSession:NO];
 	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://m.ac.nz/justupdate/iphone/about"]];	
 }
 
 -(IBAction)aboutPrivacyPolicy:(id)sender
 {
-	if(!disableAnalytics) [[ALService sharedService] logAction:@"Opened Privacy Policy"];
+	if(!disableAnalytics) [[Beacon shared] startSubBeaconWithName:@"open privacy policy" timeSession:NO];
 	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://m.ac.nz/justupdate/iphone/privacy"]];		
 }
 
