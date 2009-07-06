@@ -23,14 +23,17 @@
 
 #import <UIKit/UIKit.h>
 
-@class JustUpdateViewController;
 @class AuthdThreadArgs;
+@class OAToken;
+@class OAConsumer;
 
-@interface JustUpdateAppDelegate : NSObject <UIApplicationDelegate, UITextViewDelegate, UITextFieldDelegate, UIAlertViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate> {
+@interface JustUpdateAppDelegate : UIViewController <UIApplicationDelegate, UITextViewDelegate, UIAlertViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIWebViewDelegate> {
 	IBOutlet UIWindow *window;
 	IBOutlet UIView *newTweetView;
 	
 	IBOutlet UINavigationItem *navigationItem;
+	IBOutlet UINavigationBar *navigationBar;
+	IBOutlet UIToolbar *postBar;
 		
 	IBOutlet UIBarButtonItem *charactersRemaining;
 	IBOutlet UIBarButtonItem *postTweetItem;
@@ -38,8 +41,9 @@
 	IBOutlet UITextView *newTweet;
 
 	IBOutlet UIView *signinView;
-	IBOutlet UITextField *signinUsername;
-	IBOutlet UITextField *signinPassword;
+	IBOutlet UINavigationItem *signInNavigationItem;
+	IBOutlet UINavigationBar *signInNavigationBar;
+	IBOutlet UIView *signinBoxes;
 	
 	IBOutlet UIView *replyPickerOverlay;
 	IBOutlet UIPickerView *replyPickerPerson;
@@ -53,6 +57,7 @@
 	
 	BOOL disableAnalytics;
 	
+	BOOL replyPickerOverlayVisible;
 	
 	
 	NSArray *aboutScreenObjects;
@@ -60,11 +65,24 @@
 	IBOutlet UIView *aboutView;
 	IBOutlet UILabel *aboutVersion;
 	
+	IBOutlet UIView *scaler;
+	
+	OAConsumer *consumer;
+	
+	CGFloat currentStatusBarHeight;
+	
+	IBOutlet UIWebView *aboutCreditsView;
+	IBOutlet UIBarButtonItem *aboutCredits;
 }
 
 @property (nonatomic, retain) UIWindow *window;
 @property (retain) NSArray *replyPeople; 
 @property (nonatomic, retain) NSString *replyPrefix;
+
+@property (nonatomic, retain) UIView *scaler;
+
+@property (readonly) OAConsumer *consumer;
+@property (readonly) OAToken *accessToken;
 
 -(void)showSignin;
 
@@ -77,11 +95,10 @@
 -(IBAction)directMessage:(id)Sender;
 -(IBAction)hideReplyPicker:(id)sender;
 
+-(IBAction)signinNow:(id)sender;
+
 -(void)postTweetDoneCommon;
 -(void)replyDMCommon;
-
--(void)verifySignin:(NSString*)username andPassword:(NSString*)password withCallbackSelector:(SEL)sel target:(id)theTarget;
--(void)doVerifySignin:(AuthdThreadArgs*)credentials;
 
 -(NSString*)getFriendsCacheFileName;
 
@@ -95,6 +112,15 @@
 -(IBAction)aboutDismiss:(id)sender;
 -(IBAction)aboutVisitWebsite:(id)sender;
 -(IBAction)aboutPrivacyPolicy:(id)sender;
+-(IBAction)aboutShowCredits:(id)sender;
+
+#pragma mark -
+#pragma mark OAuth
+
+-(BOOL)initiateSignin;
+-(void)getRequestToken;
+-(void)getAccessToken;
+-(void)oauthSignout;
 
 @end
 

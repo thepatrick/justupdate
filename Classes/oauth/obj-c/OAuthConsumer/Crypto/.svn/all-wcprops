@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/516/code/obj-c/OAuthConsumer/Crypto
+END
+Base64Transcoder.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/510/code/obj-c/OAuthConsumer/Crypto/Base64Transcoder.h
+END
+sha1.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/510/code/obj-c/OAuthConsumer/Crypto/sha1.h
+END
+hmac.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/510/code/obj-c/OAuthConsumer/Crypto/hmac.c
+END
+Base64Transcoder.c
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/510/code/obj-c/OAuthConsumer/Crypto/Base64Transcoder.c
+END
+sha1.c
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/516/code/obj-c/OAuthConsumer/Crypto/sha1.c
+END
+hmac.h
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/510/code/obj-c/OAuthConsumer/Crypto/hmac.h
+END
