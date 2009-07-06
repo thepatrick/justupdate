@@ -32,6 +32,7 @@
 // #define JUKey @"..."
 // #define JUSecret @"..."
 // You'll need obtain these for yourself by registering a new app on twitter.com
+// and by going to Settings, Connections and clicking on the App Developers link.
 // You should NOT commit JustUpdateTwitterDefines.h to git.
 #import "JustUpdateTwitterDefines.h"
 
