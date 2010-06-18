@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Patrick Quinn-Graham
+ * Copyright (c) 2008-2010 Patrick Quinn-Graham
  * 
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -84,6 +84,8 @@
 @property (readonly) OAConsumer *consumer;
 @property (readonly) OAToken *accessToken;
 
+-(void)bootTimeOAuthStuff;
+
 -(void)showSignin;
 
 -(IBAction)signOut:(id)sender;
@@ -111,7 +113,6 @@
 
 -(IBAction)aboutDismiss:(id)sender;
 -(IBAction)aboutVisitWebsite:(id)sender;
--(IBAction)aboutPrivacyPolicy:(id)sender;
 -(IBAction)aboutShowCredits:(id)sender;
 
 #pragma mark -

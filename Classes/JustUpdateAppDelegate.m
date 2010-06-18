@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008 Patrick Quinn-Graham
+ * Copyright (c) 2008-2010 Patrick Quinn-Graham
  * 
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -26,7 +26,6 @@
 #import "AuthdThreadArgs.h"
 #import "NSStringSyncAdditions.h"
 #import "JSON.h"
-#import "Beacon.h"
 
 // NB: JustUpdateTwitterDefines.h provides:
 // #define JUKey @"..."
@@ -44,54 +43,7 @@
 @synthesize replyPrefix;
 @synthesize scaler;
 
--(void)applicationDidFinishLaunching:(UIApplication *)application 
-{	
-	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
-
-	NSInteger currentBuild = [(NSString*)[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleVersion"] integerValue];
-
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];		
-	NSMutableDictionary *dd = [NSMutableDictionary dictionaryWithObject:@"" forKey:@"JUUsername"];
-	[dd setValue:@"" forKey:@"JUPassword"];
-	[dd setValue:@"NO" forKey:@"JUConfirmedAnalytics"];
-	[dd setValue:@"NO" forKey:@"JUDisableAnalytics"];
-	[dd setValue:[NSNumber numberWithInteger:currentBuild] forKey:@"currentbuild"];
-	[defaults registerDefaults:dd];
-
-	charactersRemaining.enabled = false;
-	
-	//newTweetView.frame = [[UIScreen mainScreen] applicationFrame];
-	
-	
-	[self.view addSubview:newTweetView]; 
-	[self.window addSubview:self.view];
-	
-	NSString *lastTweetText = [[NSUserDefaults standardUserDefaults] stringForKey:@"JUSavedTweet"];
-	if(lastTweetText) {
-		newTweet.text = lastTweetText;		
-	} else {
-		newTweet.text = @"";
-	}
-	
-	newTweet.delegate = self;
-	
-	if(![defaults boolForKey:@"JUConfirmedAnalytics"]) {
-		UIAlertView *uav = [[UIAlertView alloc] initWithTitle:@"Anonymous Statistics" 
-													  message:@"JustUpdate would like to collect anonymous usage statistics during operation.\n\n At no time does any of this information contain the content of your tweets, your username, your location, or any other identifying information.\n\nVisit the website for full details." 
-													 delegate:self 
-											cancelButtonTitle:@"Disable" 
-											otherButtonTitles:@"OK", nil];
-		[uav show];
-		[uav autorelease];
-	}
-	
-	disableAnalytics  = [[NSUserDefaults standardUserDefaults] boolForKey:@"JUDisableAnalytics"];
-	if(!disableAnalytics) {
-		NSString *applicationCode = @"e20c4f9c194bea9049b6daf7d649c261";
-		[Beacon initAndStartBeaconWithApplicationCode:applicationCode useCoreLocation:NO useOnlyWiFi:NO];
-	}
-	
-	
+-(void)bootTimeOAuthStuff {
 	BOOL doSignin = YES;
 	
 	OAToken *accessToken = self.accessToken;
@@ -110,9 +62,37 @@
 	if(doSignin) {
 		[self showSignin];
 	} else {
-		self.title = [defaults valueForKey:@"JUUsername"];
+		self.title = [[NSUserDefaults standardUserDefaults] valueForKey:@"JUUsername"];
 		[newTweet becomeFirstResponder];
 	}
+}
+
+-(void)applicationDidFinishLaunching:(UIApplication *)application {	
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
+
+	NSInteger currentBuild = [(NSString*)[[[NSBundle mainBundle] infoDictionary] objectForKey: @"CFBundleVersion"] integerValue];
+
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];		
+	NSMutableDictionary *dd = [NSMutableDictionary dictionaryWithObject:@"" forKey:@"JUUsername"];
+	[dd setValue:@"" forKey:@"JUPassword"];
+	[dd setValue:[NSNumber numberWithInteger:currentBuild] forKey:@"currentbuild"];
+	[defaults registerDefaults:dd];
+
+	charactersRemaining.enabled = false;
+	
+	[self.view addSubview:newTweetView]; 
+	[self.window addSubview:self.view];
+	
+	NSString *lastTweetText = [[NSUserDefaults standardUserDefaults] stringForKey:@"JUSavedTweet"];
+	if(lastTweetText) {
+		newTweet.text = lastTweetText;		
+	} else {
+		newTweet.text = @"";
+	}
+	
+	newTweet.delegate = self;
+	
+	[self bootTimeOAuthStuff];
 	
 	self.replyPeople = [NSArray array];
 	
@@ -271,8 +251,7 @@
 	return qsDict;
 }
 
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
-{
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
 	
 	BOOL handledURL = NO;
 		
@@ -280,7 +259,7 @@
 		NSDictionary *d = [self dictionaryFromQueryString:[url query]];
 		NSString *msg = [d objectForKey:@"msg"];
 		if(msg) {
-			newTweet.text = [newTweet.text stringByAppendingFormat:msg];
+			newTweet.text = [newTweet.text stringByAppendingString:msg];
 			handledURL = YES;
 		}
 	} else {
@@ -298,8 +277,7 @@
 	return frame;
 }
 
--(void)showSignin 
-{
+-(void)showSignin {
 	[self textViewDidChange:newTweet];
 	
 	CGRect baseFrame = [self orientateFrame:self.view.frame];
@@ -321,8 +299,7 @@
 	
 }
 
--(void)hideSignin
-{
+-(void)hideSignin {
 	[UIView beginAnimations:@"hideSignIn" context:nil];
 	
 	CGRect baseFrame = [[UIScreen mainScreen] applicationFrame];
@@ -334,8 +311,7 @@
 	[UIView commitAnimations];
 }
 
--(void)animationStopped:(NSString*)animationID afterFinishing:(BOOL)finished withContext:(void*)context
-{
+-(void)animationStopped:(NSString*)animationID afterFinishing:(BOOL)finished withContext:(void*)context {
 	//NSLog(@"Ended animation %@", animationID);
 	if(animationID == @"hideSignIn") {
 		[signinView retain];
@@ -349,12 +325,16 @@
 	}
 }
 
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+	[self bootTimeOAuthStuff];
+}
 
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-	
+- (void)applicationDidEnterBackground:(UIApplication *)application {
 	[[NSUserDefaults standardUserDefaults] setValue:newTweet.text forKey:@"JUSavedTweet"];
-	if(!disableAnalytics) [[Beacon shared] endBeacon];
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+	[[NSUserDefaults standardUserDefaults] setValue:newTweet.text forKey:@"JUSavedTweet"];
 }
 
 -(void)dealloc {
@@ -368,14 +348,12 @@
 #pragma mark -
 #pragma mark Text View Delegate Methods
 
--(void)textViewDidChange:(UITextView *)textView 
-{
+-(void)textViewDidChange:(UITextView *)textView {
 	charactersRemaining.title = [NSString stringWithFormat:@"%d remaining", (140 - [newTweet.text length])];
 	postTweetItem.enabled = ([newTweet.text length] != 0);
 }
 
--(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text 
-{
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
 	if([newTweet.text length] == 140 && range.length == 0) {
 		return NO;
 	}
@@ -385,25 +363,21 @@
 #pragma mark -
 #pragma mark Picker View Delegate Methods
 
--(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
-{
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
 	return 1;
 }
 
--(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
-{
+-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
 	return [replyPeople count];
 }
 
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
-{
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
 	if([replyPeople count] < row) return @"";
 	NSDictionary *x = [replyPeople objectAtIndex:row];
 	return [NSString stringWithFormat:@"%@ (%@)", [x valueForKey:@"name"], [x valueForKey:@"screen_name"]];
 }
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
-{
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
 	if([replyPeople count] == 0) return;
 	newTweet.text = [NSString stringWithFormat:@"%@%@ ", self.replyPrefix, [[replyPeople objectAtIndex:row] valueForKey:@"screen_name"]];
 	[self textViewDidChange:newTweet];
@@ -412,10 +386,7 @@
 #pragma mark -
 #pragma mark UI Actions
 
--(IBAction)signOut:(id)sender 
-{	
-	if(!disableAnalytics) [[Beacon shared] startSubBeaconWithName:@"signout" timeSession:NO];
-	
+-(IBAction)signOut:(id)sender {
 	NSFileManager *fm = [NSFileManager defaultManager];
 	NSString *cachePath = [self getFriendsCacheFileName];
 	if([fm fileExistsAtPath:cachePath]) {
@@ -428,24 +399,16 @@
 	
 }
 
--(IBAction)postTweet:(id)sender
-{
+-(IBAction)postTweet:(id)sender {
 	//newTweet
 	[newTweet resignFirstResponder];
 	newTweet.editable = NO;
-	
-	//CGRect ptFrame = postingTweet.frame;
-//	ptFrame.origin.x = 0;
-//	ptFrame.origin.y = 244;
-//	postingTweet.frame = ptFrame;
-	[self.view addSubview:postingTweet];
-	
+	[self.view addSubview:postingTweet];	
 	postTweetItem.enabled = NO;
 	[NSThread detachNewThreadSelector:@selector(doPushTweet:) toTarget:self withObject:newTweet.text];
 }
 
 -(void)postTweetDone {
-	if(!disableAnalytics) [[Beacon shared] startSubBeaconWithName:@"post tweet ok" timeSession:NO];
 	[self postTweetDoneCommon];
 	newTweet.text = @"";
 	[self textViewDidChange:newTweet];
@@ -462,20 +425,15 @@
 	
 }
 
--(IBAction)about:(id)sender 
-{
+-(IBAction)about:(id)sender {
 	[self showAboutScreen];
 }
 
--(IBAction)signup:(id)sender 
-{
-	if(!disableAnalytics) [[Beacon shared] startSubBeaconWithName:@"signup" timeSession:NO];
+-(IBAction)signup:(id)sender {
 	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://m.ac.nz/justupdate/iphone/signup"]];	
 }
 
--(IBAction)reply:(id)sender 
-{	
-	if(!disableAnalytics) [[Beacon shared] startSubBeaconWithName:@"open reply" timeSession:NO];
+-(IBAction)reply:(id)sender {	
 	self.replyPrefix = @"@";
 	replyPickerTitle.text = @"Send Reply To:";
 	[replyPickerTitleBackground setImage:[UIImage imageNamed:@"PopupOverlay.png"] forState:UIControlStateNormal];
@@ -483,9 +441,7 @@
 	[self replyDMCommon];
 }
 
--(IBAction)directMessage:(id)sender 
-{
-	if(!disableAnalytics) [[Beacon shared] startSubBeaconWithName:@"open dm" timeSession:NO];
+-(IBAction)directMessage:(id)sender {
 	replyPickerTitle.text = @"Send Direct Message To:";
 	self.replyPrefix = @"d ";
 	[replyPickerTitleBackground setImage:[UIImage imageNamed:@"PopupOverlayDM.png"] forState:UIControlStateNormal];
@@ -493,8 +449,7 @@
 	[self replyDMCommon];
 }
 
--(IBAction)hideReplyPicker:(id)sender
-{
+-(IBAction)hideReplyPicker:(id)sender {
 	[newTweet becomeFirstResponder];
 	[replyPickerOverlay retain];
 	[replyPickerOverlay removeFromSuperview];
@@ -502,7 +457,6 @@
 }
 
 -(IBAction)signinNow:(id)sender {
-
 	// do sign in...
 	[self initiateSignin];
 	
@@ -512,8 +466,7 @@
 #pragma mark Replies & DMs
 
 
--(void)replyDMCommon
-{
+-(void)replyDMCommon {
 	replyPickerOverlayVisible = YES;
 	CGRect baseFrame =  [self orientateFrame:self.view.frame];
 	baseFrame.origin.y = 0;	
@@ -543,20 +496,12 @@
 #pragma mark -
 #pragma mark Alert View Delegate Methods
 
--(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if([alertView.title isEqualToString:@"Anonymous Statistics"]) {
-		if(buttonIndex == 0) {
-			[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"JUDisableAnalytics"];
-			disableAnalytics = YES;
-			[[Beacon shared] endBeacon];
-		}
-		[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"JUConfirmedAnalytics"];
 	}
 }
 
--(void)verifySigninDone:(AuthdThreadArgs*)args
-{
+-(void)verifySigninDone:(AuthdThreadArgs*)args {
 	
 	NSMethodSignature *sig = [args.target methodSignatureForSelector:args.selector];
     if (sig) {		
@@ -629,8 +574,6 @@
 		NSLog(@"The specific error was: %@", err);
 		[self performSelectorOnMainThread:@selector(showTwitterUpdateFailedWithMessage:) withObject:@"Couldn't connect to twitter, sorry." waitUntilDone:YES];
 		alreadyAlerted = YES;
-		if(!disableAnalytics) 
-			[[Beacon shared] startSubBeaconWithName:@"connectFailed-1" timeSession:NO];
 	}
 	
 	NSDictionary *dict = nil;
@@ -646,8 +589,6 @@
 				NSLog(@"m is not nil... d bytes, d, m, d length, response length: %s \n\n %@ \n\n %d \n\n %@", [d bytes], m, [d length], [NSNumber numberWithLongLong:[response expectedContentLength]]);
 			}
 			[self performSelectorOnMainThread:@selector(showTwitterUpdateFailedWithMessage:) withObject:@"We might be unable to reach twitter, or you may have changed your password." waitUntilDone:YES];
-			if(!disableAnalytics)
-				[[Beacon shared] startSubBeaconWithName:@"postTweetFailed-2" timeSession:NO];
 		}
 		[self performSelectorOnMainThread:@selector(postTweetDoneCommon) withObject:nil waitUntilDone:YES];
 	}
@@ -719,8 +660,6 @@
 	} else {
 		NSLog(@"The specific error was: %@", err);
 		[self performSelectorOnMainThread:@selector(showTwitterCallFailedWithMessage:) withObject:@"Couldn't connect to twitter, sorry." waitUntilDone:YES];
-		if(!disableAnalytics) 
-			[[Beacon shared] startSubBeaconWithName:@"connectFailed-1" timeSession:NO];
 		return;
 	}
 	
@@ -750,8 +689,7 @@
 #pragma mark -
 #pragma mark Auxillary Methods
 
--(void)peopleFromJSONString:(NSString*)jsonString
-{
+-(void)peopleFromJSONString:(NSString*)jsonString {
 	NSArray *dict = [jsonString JSONValue];
 	if(dict != nil) {
 		self.replyPeople = dict;
@@ -761,22 +699,19 @@
 	}
 }
 
--(void)sortReplyPeople
-{        
+-(void)sortReplyPeople {        
 	NSSortDescriptor *sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES] autorelease];
 	self.replyPeople = [self.replyPeople sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
 }
 
--(NSString*)getFriendsCacheFileName
-{
+-(NSString*)getFriendsCacheFileName {
 	NSString *username = [[NSUserDefaults standardUserDefaults] valueForKey:@"JUUsername"];	
 	NSString *f = [NSString stringWithFormat:@"friends-%@.json", [username urlencode]];
 	return [[self getDocumentsDirectory] stringByAppendingPathComponent:f];
 }
 
 // Creates a writable copy of the bundled default database in the application Documents directory.
--(NSString*)getDocumentsDirectory 
-{
+-(NSString*)getDocumentsDirectory {
     // First, test for existence.
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
@@ -787,7 +722,8 @@
     // Workaround for Beta issue where Documents directory is not created during install.
     BOOL exists = [fileManager fileExistsAtPath:documentsDirectory];
     if (!exists) {
-        BOOL success = [fileManager createDirectoryAtPath:documentsDirectory attributes:nil];
+		NSError *err;
+		BOOL success = [fileManager createDirectoryAtPath:documentsDirectory withIntermediateDirectories:YES attributes:nil error:&err];
         if (!success) {
             NSAssert(0, @"Failed to create Documents directory.");
         }
@@ -801,10 +737,7 @@
 #pragma mark About Screen Stuff
 
 
--(void)showAboutScreen
-{
-	[[Beacon shared] startSubBeaconWithName:@"openAbout" timeSession:NO];
-	if(!disableAnalytics) [[Beacon shared] startSubBeaconWithName:@"open about" timeSession:NO];
+-(void)showAboutScreen {
 	
 	aboutScreenObjects = [[NSBundle mainBundle] loadNibNamed:@"AboutScreen" owner:self options:nil];
 	[aboutScreenObjects retain];
@@ -831,16 +764,14 @@
 	[UIView commitAnimations];
 }
 
--(void)dismissAboutScreenDone
-{
+-(void)dismissAboutScreenDone {
 	[aboutView retain];
 	[aboutView removeFromSuperview];
 	[aboutScreenObjects release];
 	aboutScreenObjects = nil;
 }
 
--(IBAction)aboutDismiss:(id)sender
-{
+-(IBAction)aboutDismiss:(id)sender {
 	[UIView beginAnimations:@"hideAboutScreen" context:nil];
 	
 	CGRect baseFrame = [[UIScreen mainScreen] applicationFrame];
@@ -854,16 +785,8 @@
 	[UIView commitAnimations];	
 }
 
--(IBAction)aboutVisitWebsite:(id)sender
-{
-	if(!disableAnalytics) [[Beacon shared] startSubBeaconWithName:@"open own website" timeSession:NO];
+-(IBAction)aboutVisitWebsite:(id)sender {
 	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://m.ac.nz/justupdate/iphone/about"]];	
-}
-
--(IBAction)aboutPrivacyPolicy:(id)sender
-{
-	if(!disableAnalytics) [[Beacon shared] startSubBeaconWithName:@"open privacy policy" timeSession:NO];
-	[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://m.ac.nz/justupdate/iphone/privacy"]];		
 }
 
 -(IBAction)aboutShowCredits:(id)sender {
@@ -935,8 +858,7 @@
 #pragma mark -
 #pragma mark OAuth Consumer
 
--(OAConsumer*)consumer
-{
+-(OAConsumer*)consumer {
 	if(consumer == nil) {
 		consumer = [[OAConsumer alloc] initWithKey:JUKey secret:JUSecret];
 	}
@@ -961,8 +883,7 @@
 	return requestToken != nil;
 }
 
--(void)getRequestToken
-{
+-(void)getRequestToken {
 	
     NSURL *url = [NSURL URLWithString:@"https://twitter.com/oauth/request_token"];
 	
@@ -997,9 +918,6 @@
 		NSLog(@"URL is: %@", urlString);
 		NSURL *url = [NSURL URLWithString:urlString];
 		
-		
-		if(!disableAnalytics) [[Beacon shared] startSubBeaconWithName:@"signinBegin" timeSession:NO];
-		
 		[[UIApplication sharedApplication] openURL:url];
 		[requestToken release];
 		
@@ -1016,8 +934,7 @@
 #pragma mark -
 #pragma mark Acces Token
 
--(void)getAccessToken
-{
+-(void)getAccessToken {
 	
 	OAToken *requestToken = [[OAToken alloc] initWithUserDefaultsUsingServiceProviderName:@"auth_request"
 																				   prefix:@"twitter"];
@@ -1064,8 +981,8 @@
 		[requestToken storeInUserDefaultsWithServiceProviderName:@"access"
 														  prefix:@"twitter"];
 		
-		if(!disableAnalytics) [[Beacon shared] startSubBeaconWithName:@"signinComplete" timeSession:NO];
 		// dismiss setup screen, for now, just...
+		[self performSelectorOnMainThread:@selector(hideSignin) withObject:nil waitUntilDone:NO];
 		NSLog(@"Authenticated ok.");
 		[requestToken release];
 	}
@@ -1092,8 +1009,7 @@
 	return [requestToken autorelease];
 }
 
--(void)oauthSignout
-{
+-(void)oauthSignout {
 	// remove the tokens
 	NSUserDefaults *d = [NSUserDefaults standardUserDefaults];
 	

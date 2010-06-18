@@ -27,7 +27,6 @@
 		CD0C4B290FE77AE500E6F5B5 /* OAServiceTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0C4B1E0FE77AE500E6F5B5 /* OAServiceTicket.m */; };
 		CD0C4B2A0FE77AE500E6F5B5 /* OAToken_KeychainExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0C4B200FE77AE500E6F5B5 /* OAToken_KeychainExtensions.m */; };
 		CD0C4B2B0FE77AE500E6F5B5 /* OAToken.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0C4B220FE77AE500E6F5B5 /* OAToken.m */; };
-		CD0C4B2D0FE77B8600E6F5B5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD0C4B2C0FE77B8600E6F5B5 /* Security.framework */; };
 		CD120FC00E64042000AEEEFA /* PopupOverlayDM.png in Resources */ = {isa = PBXBuildFile; fileRef = CD120FBF0E64042000AEEEFA /* PopupOverlayDM.png */; };
 		CD120FD50E64063100AEEEFA /* PopupOverlayHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = CD120FD30E64063100AEEEFA /* PopupOverlayHighlight.png */; };
 		CD120FD60E64063100AEEEFA /* PopupOverlayDMHighlight.png in Resources */ = {isa = PBXBuildFile; fileRef = CD120FD40E64063100AEEEFA /* PopupOverlayDMHighlight.png */; };
@@ -37,7 +36,6 @@
 		CD7091150E57264D00D1BF45 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CD7091140E57264D00D1BF45 /* Icon.png */; };
 		CD7091540E57337D00D1BF45 /* AuthdThreadArgs.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7091530E57337D00D1BF45 /* AuthdThreadArgs.m */; };
 		CD7091920E573B0300D1BF45 /* NSStringSyncAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7091910E573B0300D1BF45 /* NSStringSyncAdditions.m */; };
-		CDA85CF80FEB4E6B00931431 /* libPMAnalytics-r64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDA85CF70FEB4E6B00931431 /* libPMAnalytics-r64.a */; };
 		CDBCC9600FE8CE1000400EC8 /* JustUpdate.png in Resources */ = {isa = PBXBuildFile; fileRef = CDBCC95F0FE8CE1000400EC8 /* JustUpdate.png */; };
 		CDCAABAA0E66ADAC00937599 /* LargeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = CDCAABA90E66ADAC00937599 /* LargeIcon.png */; };
 		CDCAABAC0E66AFB100937599 /* AboutScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDCAABAB0E66AFB100937599 /* AboutScreen.xib */; };
@@ -92,11 +90,9 @@
 		CD0C4B200FE77AE500E6F5B5 /* OAToken_KeychainExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OAToken_KeychainExtensions.m; path = "oauth/obj-c/OAuthConsumer/OAToken_KeychainExtensions.m"; sourceTree = "<group>"; };
 		CD0C4B210FE77AE500E6F5B5 /* OAToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OAToken.h; path = "oauth/obj-c/OAuthConsumer/OAToken.h"; sourceTree = "<group>"; };
 		CD0C4B220FE77AE500E6F5B5 /* OAToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OAToken.m; path = "oauth/obj-c/OAuthConsumer/OAToken.m"; sourceTree = "<group>"; };
-		CD0C4B2C0FE77B8600E6F5B5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		CD120FBF0E64042000AEEEFA /* PopupOverlayDM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PopupOverlayDM.png; path = Images/PopupOverlayDM.png; sourceTree = "<group>"; };
 		CD120FD30E64063100AEEEFA /* PopupOverlayHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PopupOverlayHighlight.png; path = Images/PopupOverlayHighlight.png; sourceTree = "<group>"; };
 		CD120FD40E64063100AEEEFA /* PopupOverlayDMHighlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PopupOverlayDMHighlight.png; path = Images/PopupOverlayDMHighlight.png; sourceTree = "<group>"; };
-		CD407CB90F43E6F600CBC0B2 /* Beacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Beacon.h; sourceTree = "<group>"; };
 		CD5A38050E65CD7600CF8A88 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		CD5A38070E65CD9400CF8A88 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		CD5A38080E65CD9400CF8A88 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -105,8 +101,6 @@
 		CD7091530E57337D00D1BF45 /* AuthdThreadArgs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthdThreadArgs.m; sourceTree = "<group>"; };
 		CD7091900E573B0300D1BF45 /* NSStringSyncAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringSyncAdditions.h; sourceTree = "<group>"; };
 		CD7091910E573B0300D1BF45 /* NSStringSyncAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringSyncAdditions.m; sourceTree = "<group>"; };
-		CDA85CF60FEB4E6B00931431 /* Beacon+FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Beacon+FBConnect.h"; sourceTree = "<group>"; };
-		CDA85CF70FEB4E6B00931431 /* libPMAnalytics-r64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libPMAnalytics-r64.a"; sourceTree = "<group>"; };
 		CDBCC95F0FE8CE1000400EC8 /* JustUpdate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = JustUpdate.png; path = Images/JustUpdate.png; sourceTree = "<group>"; };
 		CDCAABA90E66ADAC00937599 /* LargeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LargeIcon.png; path = Images/LargeIcon.png; sourceTree = "<group>"; };
 		CDCAABAB0E66AFB100937599 /* AboutScreen.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutScreen.xib; sourceTree = "<group>"; };
@@ -134,8 +128,6 @@
 				CD5A38060E65CD7600CF8A88 /* libsqlite3.0.dylib in Frameworks */,
 				CD5A38090E65CD9400CF8A88 /* CoreLocation.framework in Frameworks */,
 				CD5A380A0E65CD9400CF8A88 /* SystemConfiguration.framework in Frameworks */,
-				CD0C4B2D0FE77B8600E6F5B5 /* Security.framework in Frameworks */,
-				CDA85CF80FEB4E6B00931431 /* libPMAnalytics-r64.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,13 +161,11 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				CD407CB20F43E6D900CBC0B2 /* Pinch */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				CD0C4B2C0FE77B8600E6F5B5 /* Security.framework */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -291,16 +281,6 @@
 				CD0C4B100FE77AB900E6F5B5 /* OAuthConsumer.h */,
 			);
 			name = Classes;
-			sourceTree = "<group>";
-		};
-		CD407CB20F43E6D900CBC0B2 /* Pinch */ = {
-			isa = PBXGroup;
-			children = (
-				CDA85CF60FEB4E6B00931431 /* Beacon+FBConnect.h */,
-				CDA85CF70FEB4E6B00931431 /* libPMAnalytics-r64.a */,
-				CD407CB90F43E6F600CBC0B2 /* Beacon.h */,
-			);
-			name = Pinch;
 			sourceTree = "<group>";
 		};
 		CDE47F200E5750F200413BC1 /* JSON */ = {
@@ -465,11 +445,11 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 2.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Debug;
 		};
@@ -481,10 +461,10 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 2.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Release;
 		};
@@ -493,14 +473,14 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Patrick F Quinn-Graham";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 2.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ABD49021-B93E-4DBC-9AFC-D05D3DDEF00E";
-				SDKROOT = iphoneos3.0;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos4.0;
 			};
 			name = "Ad Hoc";
 		};
@@ -529,10 +509,10 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 2.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B05D2670-B452-4E39-8AAB-51D04F057FB2";
-				SDKROOT = iphoneos3.0;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "182C90AF-6B41-4C4F-87B0-BDBE234889AF";
+				SDKROOT = iphoneos4.0;
 			};
 			name = "App Store";
 		};
